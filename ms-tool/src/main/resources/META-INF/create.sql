@@ -1,0 +1,1 @@
+CREATE TABLE public.REST_DB_TOOLS(ID integer, NAME VARCHAR (500));

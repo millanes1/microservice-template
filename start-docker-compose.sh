@@ -4,6 +4,8 @@
 # variable for MS_WORKPACKAGE
 export MS_WORKPACKAGE_HOME=$(pwd)/ms-workpackage
 export MS_TASK_HOME=$(pwd)/ms-task
+export MS_TOOL_HOME=$(pwd)/ms-tool
+
 
 export UID=$UID
 
