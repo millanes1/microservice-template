@@ -1,25 +1,66 @@
 version: '2'
 
 services:
-    tools:
-      build: 
+    workpackage:
+      build:
         context: .
-        dockerfile: ${MS_TOOL_HOME}/dev/Dockerfile.dev
+        dockerfile: ${MS_WORKPACKAGE_HOME}/dev/Dockerfile.dev
         args:
-            DEV_HOME : ${MS_TOOL_HOME}
+            DEV_HOME : ${MS_WORKPACKAGE_HOME}
 
-      container_name: tool_cn
+      container_name: workpackage_cn
       ports:
-        - "8078:8080"
+        - "8080:8080"
 
       volumes:
-         - ../ms-tool:${MS_TOOL_HOME}
+         - ../ms-workpackage:${MS_WORKPACKAGE_HOME}
 
       external_links:
         - postgresdb:postgres
       networks:
         - default
         - postgresdb_default
+
+    task:
+       build:
+         context: .
+         dockerfile: ${MS_TASK_HOME}/dev/Dockerfile.dev
+         args:
+             DEV_HOME : ${MS_TASK_HOME}
+       container_name: task_cn
+
+       ports:
+         - "8079:8080"
+
+       volumes:
+          - ../ms-task:${MS_TASK_HOME}
+
+       external_links:
+         - postgresdb:postgres
+       networks:
+         - default
+         - postgresdb_default
+
+    tools:
+       build:
+         context: .
+         dockerfile: ${MS_TOOL_HOME}/dev/Dockerfile.dev
+         args:
+             DEV_HOME : ${MS_TOOL_HOME}
+
+       container_name: tool_cn
+       ports:
+          - "8078:8080"
+
+       volumes:
+          - ../ms-tool:${MS_TOOL_HOME}
+
+       external_links:
+         - postgresdb:postgres
+       networks:
+         - default
+         - postgresdb_default
+
 
 networks:
     default:
