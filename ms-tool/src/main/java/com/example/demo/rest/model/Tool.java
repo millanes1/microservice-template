@@ -1,4 +1,4 @@
-package com.example.demo.rest;
+package com.example.demo.rest.model;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -17,30 +17,31 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Arun Gupta
  */
 @Entity
-@Table(name = "REST_DB_WORKPACKAGE")
+@Table(name = "REST_DB_TOOLS")
 @NamedQueries({
-        @NamedQuery(name = "WorkPackage.findAll", query = "SELECT w FROM WorkPackage w"),
-        @NamedQuery(name = "WorkPackage.getById", query="SELECT w FROM WorkPackage w WHERE w.id=:id")
+        @NamedQuery(name = "Tool.findAll", query = "SELECT t FROM Tool t"),
+        @NamedQuery(name = "Tool.getById", query = "SELECT t FROM Tool t WHERE t.id=:id"),
+        @NamedQuery(name = "Tool.findByTaskId", query = "SELECT t FROM Tool t WHERE t.taskId=:id")
 })
 @XmlRootElement
-public class WorkPackage implements Serializable {
+public class Tool implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @Column(name = "TOOL_ID")
+    private Integer id;
 
-    @Column(length = 40)
+    @Column(name = "TOOL_NAME")
     private String name;
+    @Column(name = "TASK_ID")
+    private Integer taskId;
 
-    @Column(length = 40)
-    private String barcode;
-
-    public WorkPackage() {
+    public Tool() {
     }
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -56,21 +57,20 @@ public class WorkPackage implements Serializable {
         this.name = name;
     }
 
-    public String getBarcode() {
-        return barcode;
+    public int getTaskId() {
+        return taskId;
     }
 
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
     }
 
-
-    @Override
-    public String toString() {
-        return "WorkPackage{" +
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "Tool{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", barcode='" + barcode + '\'' +
+                ", taskId=" + taskId +
                 '}';
     }
 }

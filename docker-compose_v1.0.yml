@@ -18,9 +18,16 @@ services:
       external_links:
         - postgresdb:postgres
 
+      depends_on:
+        - task
+
+      links:
+        - "task:ms-alias-task"
+
       networks:
         - default
         - postgresdb_default
+
     task:
        build:
          context: .
@@ -40,15 +47,14 @@ services:
 
        depends_on:
          - tool
-         - workpackage
 
        links:
           - "tool:ms-alias-tool"
-          - "workpackage:ms-alias-workpackage"
 
        networks:
          - default
          - postgresdb_default
+
     tool:
        build:
          context: .
